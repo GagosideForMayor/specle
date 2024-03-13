@@ -44,20 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         comparePlayers(selectedPlayer);
-        attemptsLeft--; // Decrement attempts left
-        attemptsCount.textContent = attemptsLeft; // Update attempts left display
-
-        if (attemptsLeft === 0) {
-            // Disable dropdown and submit button if no attempts left
-            playerDropdown.disabled = true;
-            submitButton.disabled = true;
-        }
     });
 
     function comparePlayers(selectedPlayer) {
         var correctPlayer = getCorrectPlayer();
 
         feedbackDiv.innerHTML = ''; // Clear previous feedback
+        attemptsLeft--; // Decrement attempts left
+        attemptsCount.textContent = attemptsLeft; // Update attempts left display
 
         // Display the selected player's data
         var selectedPlayerData = document.createElement('div');
@@ -82,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetGame();
             });
             feedbackDiv.appendChild(startOverButton);
-        } else {
+        } else if (attemptsLeft === 0) {
             var loseMessage = document.createElement('div');
             loseMessage.textContent = `You lose! The correct player was: ${correctPlayer.name}`;
             feedbackDiv.appendChild(loseMessage);
@@ -94,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetGame();
             });
             feedbackDiv.appendChild(startOverButton);
+
+            // Disable dropdown and submit button if no attempts left
+            playerDropdown.disabled = true;
+            submitButton.disabled = true;
         }
     }
 
