@@ -38,20 +38,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener for the submit button
     var submitButton = document.getElementById('submit-guess');
     submitButton.addEventListener('click', function() {
-        var selectedPlayerName = playerDropdown.value;
-        var selectedPlayer = players.find(function(player) {
-            return player.name === selectedPlayerName;
-        });
+        if (attemptsLeft > 0) {
+            var selectedPlayerName = playerDropdown.value;
+            var selectedPlayer = players.find(function(player) {
+                return player.name === selectedPlayerName;
+            });
 
-        comparePlayers(selectedPlayer);
+            comparePlayers(selectedPlayer);
+            attemptsLeft--; // Decrement attempts left
+            attemptsCount.textContent = attemptsLeft; // Update attempts left display
+
+            if (attemptsLeft === 0) {
+                // Disable dropdown and submit button if no attempts left
+                playerDropdown.disabled = true;
+                submitButton.disabled = true;
+            }
+        }
     });
 
     function comparePlayers(selectedPlayer) {
         var correctPlayer = getCorrectPlayer();
 
         feedbackDiv.innerHTML = ''; // Clear previous feedback
-        attemptsLeft--; // Decrement attempts left
-        attemptsCount.textContent = attemptsLeft; // Update attempts left display
 
         // Display the selected player's data
         var selectedPlayerData = document.createElement('div');
@@ -64,19 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         displayAttributeFeedback('Position', selectedPlayer.position, correctPlayer.position, feedbackDiv);
 
         // Check if the selected player is the correct player
-        if (selectedPlayer.name === correctPlayer.name) {
-            var winMessage = document.createElement('div');
-            winMessage.textContent = 'You win!';
-            feedbackDiv.appendChild(winMessage);
-
-            // Allow the player to start over with a new answer
-            var startOverButton = document.createElement('button');
-            startOverButton.textContent = 'Start Over';
-            startOverButton.addEventListener('click', function() {
-                resetGame();
-            });
-            feedbackDiv.appendChild(startOverButton);
-        } else if (attemptsLeft === 0) {
+        if (attemptsLeft === 0 && selectedPlayer.name !== correctPlayer.name) {
             var loseMessage = document.createElement('div');
             loseMessage.textContent = `You lose! The correct player was: ${correctPlayer.name}`;
             feedbackDiv.appendChild(loseMessage);
@@ -88,10 +84,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetGame();
             });
             feedbackDiv.appendChild(startOverButton);
+        } else if (attemptsLeft === 0 && selectedPlayer.name === correctPlayer.name) {
+            var winMessage = document.createElement('div');
+            winMessage.textContent = 'You win!';
+            feedbackDiv.appendChild(winMessage);
 
-            // Disable dropdown and submit button if no attempts left
-            playerDropdown.disabled = true;
-            submitButton.disabled = true;
+            // Allow the player to start over with a new answer
+            var startOverButton = document.createElement('button');
+            startOverButton.textContent = 'Start Over';
+            startOverButton.addEventListener('click', function() {
+                resetGame();
+            });
+            feedbackDiv.appendChild(startOverButton);
         }
     }
 
