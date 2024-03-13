@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Array of player objects with their stats
+    var attemptsLeft = 6; // Initialize attempts left
+
     var players = [
         { name: "Govin G", jerseyNumber: 0, position: "DEF/MID/FWD", rating: 83 },
         { name: "Ethan M", jerseyNumber: 1, position: "GK", rating: 85 },
@@ -24,36 +25,63 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: "Leo R", jerseyNumber: 30, position: "DEF", rating: 85 }
     ];
 
-    // Populate the dropdown menu with player options
     var playerDropdown = document.getElementById('player-dropdown');
+
     players.forEach(function(player) {
         var option = document.createElement('option');
         option.text = player.name;
         playerDropdown.add(option);
     });
 
-    // Event listener for the submit button
+    var attemptsCount = document.getElementById('attempts-count');
+    attemptsCount.textContent = attemptsLeft;
+
     var submitButton = document.getElementById('submit-guess');
     submitButton.addEventListener('click', function() {
         var selectedPlayerName = playerDropdown.value;
         var selectedPlayer = players.find(function(player) {
             return player.name === selectedPlayerName;
         });
-        // Call a function to compare the selected player with the correct player
+
         comparePlayers(selectedPlayer);
+        attemptsLeft--; // Decrement attempts left
+        attemptsCount.textContent = attemptsLeft; // Update attempts left display
+
+        if (attemptsLeft === 0) {
+            // Disable dropdown and submit button if no attempts left
+            playerDropdown.disabled = true;
+            submitButton.disabled = true;
+        }
     });
 
-    // Function to compare the selected player with the correct player
     function comparePlayers(selectedPlayer) {
-        // Get the correct player (You'll need to implement this logic)
         var correctPlayer = getCorrectPlayer();
-        // Compare attributes and provide feedback to the user
-        // Update the feedback area in the HTML
+
         var feedbackDiv = document.getElementById('feedback');
-        feedbackDiv.innerHTML = 'Feedback: Jersey number is higher/lower, rating is higher/lower, position is correct/incorrect.';
+        feedbackDiv.innerHTML = ''; // Clear previous feedback
+
+        // Display the selected player's data
+        var selectedPlayerData = document.createElement('div');
+        selectedPlayerData.textContent = `Your guess: ${selectedPlayer.name}, Jersey Number: ${selectedPlayer.jerseyNumber}, Rating: ${selectedPlayer.rating}, Position: ${selectedPlayer.position}`;
+        feedbackDiv.appendChild(selectedPlayerData);
+
+        // Display feedback on each attribute
+        displayAttributeFeedback('Jersey Number', selectedPlayer.jerseyNumber, correctPlayer.jerseyNumber, feedbackDiv);
+        displayAttributeFeedback('Rating', selectedPlayer.rating, correctPlayer.rating, feedbackDiv);
+        displayAttributeFeedback('Position', selectedPlayer.position, correctPlayer.position, feedbackDiv);
     }
 
-    // Function to get the correct player (You'll need to implement this logic)
+    function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
+        var feedback = document.createElement('div');
+        feedback.textContent = `${attributeName}: ${selectedValue} `;
+        if (selectedValue < correctValue) {
+            feedback.innerHTML += '&darr;'; // Arrow indicating lower value
+        } else if (selectedValue > correctValue) {
+            feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
+        }
+        feedbackDiv.appendChild(feedback);
+    }
+
     function getCorrectPlayer() {
         // This function should return the correct player object
         // You might use a random player from the players array as the correct player
