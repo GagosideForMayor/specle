@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var attemptsLeft = 6; // Initialize attempts left
-
+    var attemptsLeft = 6;
     var players = [
         { name: "Govin G", jerseyNumber: 0, position: "DEF/MID/FWD", rating: 83 },
         { name: "Ethan M", jerseyNumber: 1, position: "GK", rating: 85 },
@@ -26,16 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     var playerDropdown = document.getElementById('player-dropdown');
+    var attemptsCount = document.getElementById('attempts-count');
 
+    // Populate the dropdown menu with player options
     players.forEach(function(player) {
         var option = document.createElement('option');
         option.text = player.name;
         playerDropdown.add(option);
     });
 
-    var attemptsCount = document.getElementById('attempts-count');
-    attemptsCount.textContent = attemptsLeft;
-
+    // Event listener for the submit button
     var submitButton = document.getElementById('submit-guess');
     submitButton.addEventListener('click', function() {
         var selectedPlayerName = playerDropdown.value;
@@ -74,17 +73,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
         var feedback = document.createElement('div');
         feedback.textContent = `${attributeName}: ${selectedValue} `;
-        if (selectedValue < correctValue) {
-            feedback.innerHTML += '&darr;'; // Arrow indicating lower value
-        } else if (selectedValue > correctValue) {
-            feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
+        if (attributeName !== 'Position') {
+            if (selectedValue < correctValue) {
+                feedback.innerHTML += '&darr;'; // Arrow indicating lower value
+            } else if (selectedValue > correctValue) {
+                feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
+            }
+        } else {
+            if (selectedValue === correctValue) {
+                feedback.innerHTML += '&#10004;'; // Checkmark for correct position
+            } else {
+                feedback.innerHTML += '&#10060;'; // Crossmark for incorrect position
+            }
         }
         feedbackDiv.appendChild(feedback);
     }
 
     function getCorrectPlayer() {
-        // This function should return the correct player object
-        // You might use a random player from the players array as the correct player
         return players[Math.floor(Math.random() * players.length)];
     }
 });
