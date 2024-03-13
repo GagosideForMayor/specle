@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var playerDropdown = document.getElementById('player-dropdown');
     var attemptsCount = document.getElementById('attempts-count');
+    var feedbackDiv = document.getElementById('feedback');
 
     // Populate the dropdown menu with player options
     players.forEach(function(player) {
@@ -56,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function comparePlayers(selectedPlayer) {
         var correctPlayer = getCorrectPlayer();
 
-        var feedbackDiv = document.getElementById('feedback');
         feedbackDiv.innerHTML = ''; // Clear previous feedback
 
         // Display the selected player's data
@@ -68,6 +68,33 @@ document.addEventListener('DOMContentLoaded', function() {
         displayAttributeFeedback('Jersey Number', selectedPlayer.jerseyNumber, correctPlayer.jerseyNumber, feedbackDiv);
         displayAttributeFeedback('Rating', selectedPlayer.rating, correctPlayer.rating, feedbackDiv);
         displayAttributeFeedback('Position', selectedPlayer.position, correctPlayer.position, feedbackDiv);
+
+        // Check if the selected player is the correct player
+        if (selectedPlayer.name === correctPlayer.name) {
+            var winMessage = document.createElement('div');
+            winMessage.textContent = 'You win!';
+            feedbackDiv.appendChild(winMessage);
+
+            // Allow the player to start over with a new answer
+            var startOverButton = document.createElement('button');
+            startOverButton.textContent = 'Start Over';
+            startOverButton.addEventListener('click', function() {
+                resetGame();
+            });
+            feedbackDiv.appendChild(startOverButton);
+        } else {
+            var loseMessage = document.createElement('div');
+            loseMessage.textContent = `You lose! The correct player was: ${correctPlayer.name}`;
+            feedbackDiv.appendChild(loseMessage);
+
+            // Allow the player to start over with a new answer
+            var startOverButton = document.createElement('button');
+            startOverButton.textContent = 'Start Over';
+            startOverButton.addEventListener('click', function() {
+                resetGame();
+            });
+            feedbackDiv.appendChild(startOverButton);
+        }
     }
 
     function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
@@ -91,5 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getCorrectPlayer() {
         return players[Math.floor(Math.random() * players.length)];
+    }
+
+    function resetGame() {
+        attemptsLeft = 6;
+        attemptsCount.textContent = attemptsLeft; // Reset attempts left display
+        playerDropdown.disabled = false; // Enable dropdown
+        submitButton.disabled = false; // Enable submit button
+        feedbackDiv.innerHTML = ''; // Clear feedback
     }
 });
