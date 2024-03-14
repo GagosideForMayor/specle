@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: "Leo R", jerseyNumber: 30, position: "DEF", rating: 85 }
     ];
 
+    // Sort players array alphabetically by name
+    players.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+    });
+
     var playerDropdown = document.getElementById('player-dropdown');
     var attemptsCount = document.getElementById('attempts-count');
     var feedbackDiv = document.getElementById('feedback');
@@ -49,11 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
             attemptsLeft--; // Decrement attempts left
             attemptsCount.textContent = attemptsLeft; // Update attempts left display
 
-            if (attemptsLeft === 0) {
-                // Disable dropdown and submit button if no attempts left
-                playerDropdown.disabled = true;
-                submitButton.disabled = true;
+            // Check if the selected player is the mystery player
+            if (selectedPlayer.name === mysteryPlayer.name) {
+                var winMessage = document.createElement('div');
+                winMessage.textContent = 'You win!';
+                feedbackDiv.appendChild(winMessage);
                 revealMysteryPlayer();
+                disableGame();
+            }
+
+            if (attemptsLeft === 0 && selectedPlayer.name !== mysteryPlayer.name) {
+                var loseMessage = document.createElement('div');
+                loseMessage.textContent = `You lose! The correct player was: ${mysteryPlayer.name}`;
+                feedbackDiv.appendChild(loseMessage);
+                disableGame();
             }
         }
     });
@@ -70,17 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
         displayAttributeFeedback('Jersey Number', selectedPlayer.jerseyNumber, mysteryPlayer.jerseyNumber, feedbackDiv);
         displayAttributeFeedback('Rating', selectedPlayer.rating, mysteryPlayer.rating, feedbackDiv);
         displayAttributeFeedback('Position', selectedPlayer.position, mysteryPlayer.position, feedbackDiv);
-
-        // Check if the selected player is the correct player
-        if (attemptsLeft === 0 && selectedPlayer.name !== mysteryPlayer.name) {
-            var loseMessage = document.createElement('div');
-            loseMessage.textContent = `You lose! The correct player was: ${mysteryPlayer.name}`;
-            feedbackDiv.appendChild(loseMessage);
-        } else if (attemptsLeft === 0 && selectedPlayer.name === mysteryPlayer.name) {
-            var winMessage = document.createElement('div');
-            winMessage.textContent = 'You win!';
-            feedbackDiv.appendChild(winMessage);
-        }
     }
 
     function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
@@ -112,5 +115,25 @@ document.addEventListener('DOMContentLoaded', function() {
         var revealMessage = document.createElement('div');
         revealMessage.textContent = `The mystery player is: ${mysteryPlayer.name}`;
         feedbackDiv.appendChild(revealMessage);
+    }
+
+    function disableGame() {
+        playerDropdown.disabled = true;
+        submitButton.disabled = true;
+        var tryAgainButton = document.createElement('button');
+        tryAgainButton.textContent = 'Try Again';
+        tryAgainButton.addEventListener('click', function() {
+            resetGame();
+        });
+        feedbackDiv.appendChild(tryAgainButton);
+    }
+
+    function resetGame() {
+        attemptsLeft = 6;
+        attemptsCount.textContent = attemptsLeft; // Reset attempts left display
+        playerDropdown.disabled = false; // Enable dropdown
+        submitButton.disabled = false; // Enable submit button
+        feedbackDiv.innerHTML = ''; // Clear feedback
+        mysteryPlayer = getCorrectPlayer(); // Select a new mystery player
     }
 });
