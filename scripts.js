@@ -100,26 +100,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
-    var feedback = document.createElement('div');
-    feedback.textContent = `${attributeName}: ${selectedValue} `;
-    if (attributeName !== 'Position') {
-        if (selectedValue < correctValue) {
-            feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
-        } else if (selectedValue > correctValue) {
-            feedback.innerHTML += '&darr;'; // Arrow indicating lower value
+        var feedback = document.createElement('div');
+        feedback.textContent = `${attributeName}: ${selectedValue} `;
+        if (attributeName !== 'Position') {
+            if (selectedValue < correctValue) {
+                feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
+            } else if (selectedValue > correctValue) {
+                feedback.innerHTML += '&darr;'; // Arrow indicating lower value
+            } else {
+                feedback.innerHTML += '&#10004;'; // Checkmark for correct value
+            }
         } else {
-            feedback.innerHTML += '&#10004;'; // Checkmark for correct value
+            if (selectedValue === correctValue) {
+                feedback.innerHTML += '&#10004;'; // Checkmark for correct position
+            } else {
+                feedback.innerHTML += '&#10060;'; // Crossmark for incorrect position
+            }
         }
-    } else {
-        if (selectedValue === correctValue) {
-            feedback.innerHTML += '&#10004;'; // Checkmark for correct position
-        } else {
-            feedback.innerHTML += '&#10060;'; // Crossmark for incorrect position
-        }
+        feedbackDiv.appendChild(feedback);
     }
-    feedbackDiv.appendChild(feedback);
-}
-
 
     function getCorrectPlayer() {
         return players[Math.floor(Math.random() * players.length)];
