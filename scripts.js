@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function sortPlayersByJersey() {
         sortByJersey = !sortByJersey;
         if (sortByJersey) {
-            players.sort(function(a, b) {
+            expandedPlayers.sort(function(a, b) {
                 return a.jerseyNumber - b.jerseyNumber;
             });
         } else {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function populateDropdown() {
         playerDropdown.innerHTML = ''; // Clear existing dropdown
         if (sortByJersey) {
-            players.forEach(function(player) {
+            expandedPlayers.forEach(function(player) {
                 var option = document.createElement('option');
                 option.text = `${player.name} - #${player.jerseyNumber}`;
                 playerDropdown.add(option);
