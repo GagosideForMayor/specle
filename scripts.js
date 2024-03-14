@@ -84,15 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     populateDropdown(); // Initial population of dropdown
 
-    sortButton.addEventListener('click', function() {
-        sortPlayersByJersey();
-    });
+    // Event listener for sorting button
+    sortButton.addEventListener('click', sortPlayersByJersey);
 
     // Event listener for the submit button
     var submitButton = document.getElementById('submit-guess');
     submitButton.addEventListener('click', function() {
         if (attemptsLeft > 0) {
-            var selectedPlayerName = playerDropdown.value.split(' - ')[0]; // Extract player name from dropdown
+            var selectedPlayerName = playerDropdown.value;
             var selectedPlayer = expandedPlayers.find(function(player) {
                 return player.name === selectedPlayerName;
             });
@@ -101,20 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
             attemptsLeft--; // Decrement attempts left
             attemptsCount.textContent = attemptsLeft; // Update attempts left display
 
-            // Check if the selected player is the mystery player
-            if (selectedPlayer.name === mysteryPlayer.name) {
-                var winMessage = document.createElement('div');
-                winMessage.textContent = 'You win!';
-                feedbackDiv.appendChild(winMessage);
-                revealMysteryPlayer();
-                disableGame();
-            }
-
-            if (attemptsLeft === 0 && selectedPlayer.name !== mysteryPlayer.name) {
-                var loseMessage = document.createElement('div');
-                loseMessage.textContent = `You lose! The correct player was: ${mysteryPlayer.name}`;
-                feedbackDiv.appendChild(loseMessage);
-                disableGame();
+            if (attemptsLeft === 0) {
+                disableGame(); // Disable dropdown and submit button if no attempts left
             }
         }
     });
@@ -127,40 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedPlayerData.textContent = `Your guess: ${selectedPlayer.name}, Jersey Number: ${selectedPlayer.jerseyNumber}, Rating: ${selectedPlayer.rating}, Position: ${selectedPlayer.position}`;
         feedbackDiv.appendChild(selectedPlayerData);
 
-        // Display feedback on each attribute
-        displayAttributeFeedback('Jersey Number', selectedPlayer.jerseyNumber, mysteryPlayer.jerseyNumber, feedbackDiv);
-        displayAttributeFeedback('Rating', selectedPlayer.rating, mysteryPlayer.rating, feedbackDiv);
-        displayAttributeFeedback('Position', selectedPlayer.position, mysteryPlayer.position, feedbackDiv);
-    }
-
-    function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
-        var feedback = document.createElement('div');
-        feedback.textContent = `${attributeName}: ${selectedValue} `;
-        if (attributeName !== 'Position') {
-            if (selectedValue < correctValue) {
-                feedback.innerHTML += '&uarr;'; // Arrow indicating higher value
-            } else if (selectedValue > correctValue) {
-                feedback.innerHTML += '&darr;'; // Arrow indicating lower value
-            } else {
-                feedback.innerHTML += '&#10004;'; // Checkmark for correct value
-            }
+        // Check if the selected player is the mystery player
+        if (selectedPlayer.name === mysteryPlayer.name) {
+            revealMysteryPlayer();
+            disableGame();
         } else {
-            if (correctValue.includes(selectedValue)) {
-                feedback.innerHTML += '&#10004;'; // Checkmark for correct position
-            } else {
-                feedback.innerHTML += '&#10060;'; // Crossmark for incorrect position
-            }
+            var loseMessage = document.createElement('div');
+            loseMessage.textContent = `You lose! The correct player was: ${mysteryPlayer.name}`;
+            feedbackDiv.appendChild(loseMessage);
         }
-        feedbackDiv.appendChild(feedback);
-    }
-
-    function getCorrectPlayer() {
-        return players[Math.floor(Math.random() * players.length)];
     }
 
     function revealMysteryPlayer() {
         var revealMessage = document.createElement('div');
-        revealMessage.textContent = `The mystery player is: ${mysteryPlayer.name}`;
+        revealMessage.textContent = `You win! The mystery player is: ${mysteryPlayer.name}`;
         feedbackDiv.appendChild(revealMessage);
     }
 
@@ -180,4 +147,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mysteryPlayer = getCorrectPlayer(); // Select a new mystery player
         populateDropdown(); // Re-populate dropdown
     });
+
+    // Function to get a random player as the mystery player
+    function getCorrectPlayer() {
+        return expandedPlayers[Math.floor(Math.random() * expandedPlayers.length)];
+    }
 });
