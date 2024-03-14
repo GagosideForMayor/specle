@@ -77,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
             loseMessage.textContent = `You lose! The correct player was: ${correctPlayer.name}`;
             feedbackDiv.appendChild(loseMessage);
 
+            // Reveal the mystery player
+            var revealMessage = document.createElement('div');
+            revealMessage.textContent = `The mystery player is: ${correctPlayer.name}`;
+            feedbackDiv.appendChild(revealMessage);
+
             // Allow the player to start over with a new answer
             var startOverButton = document.createElement('button');
             startOverButton.textContent = 'Start Over';
