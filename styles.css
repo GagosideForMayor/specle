@@ -1,44 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Specle Game, v0.006</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-  <style>
-    #title-image {
-      text-align: center; /* Center the image horizontally */
-      max-width: 25%; /* Set maximum width for the title image */
-      margin: 20px auto; /* Center the container horizontally with top and bottom margin */
-    }
-    #title-image img {
-      display: block; /* Ensure the image behaves as a block element */
-      width: 100%; /* Ensure the image fills its container */
-      height: auto; /* Maintain the aspect ratio */
-    }
+/* CSS styles for the Specle Game */
 
-    #submit-guess {
-      background-color: #DAAE4F; /* Set background color */
-      color: white; /* Set text color */
-    }
-  </style>
-</head>
-<body>
-  <div id="title-image">
-    <img src="image-removebg-preview - 2024-03-18T093441.936.png" alt="Specle Game Title">
-  </div>
-  <div id="game-container">
-    <select id="player-dropdown">
-      <!-- Options for selecting players will be populated dynamically -->
-    </select>
-    <button id="submit-guess">Submit Guess</button>
-    <div id="feedback">
-      <!-- Feedback about the user's guess will be displayed here -->
-    </div>
-    <div id="attempts-left">
-      Attempts Left: <span id="attempts-count">6</span>
-    </div>
-  </div>
-  <script src="scripts.js"></script> <!-- Link to your JavaScript file (optional) -->
-</body>
-</html>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+#title-image {
+  text-align: center; /* Center the image horizontally */
+  max-width: 25%; /* Set maximum width for the title image */
+  margin: 20px auto; /* Center the container horizontally with top and bottom margin */
+}
+
+#title-image img {
+  display: block; /* Ensure the image behaves as a block element */
+  width: 100%; /* Ensure the image fills its container */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+#submit-guess {
+  background-color: #DAAE4F; /* Set background color */
+  color: white; /* Set text color */
+}
+
+/* Add more CSS styles as needed */
