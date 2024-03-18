@@ -28,6 +28,15 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+#player-dropdown {
+  display: block; /* Make the dropdown a block element */
+  margin: 20px auto; /* Center the dropdown horizontally with top and bottom margin */
+  width: calc(100% - 40px); /* Set the width of the dropdown */
+  padding: 10px; /* Add padding to the dropdown */
+  border: 1px solid #ccc; /* Add border to the dropdown */
+  border-radius: 5px; /* Add border radius to the dropdown */
+}
+
 #submit-guess {
   background-color: #DAAE4F; /* Set background color */
   color: white; /* Set text color */
