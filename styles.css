@@ -1,95 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Specle Game, v0.006</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-  <style>
-    /* CSS styles for the Specle Game */
-    body {
-      font-family: Arial, sans-serif; /* Set font-family for the entire page */
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-    }
+/* CSS styles for the Specle Game */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+#title-image {
+  text-align: center; /* Center the image horizontally */
+  max-width: 25%; /* Set maximum width for the title image */
+  margin: 20px auto; /* Center the container horizontally with top and bottom margin */
+}
+#title-image img {
+  display: block; /* Ensure the image behaves as a block element */
+  width: 100%; /* Ensure the image fills its container */
+  height: auto; /* Maintain the aspect ratio */
+}
+#game-container {
+  max-width: 600px;
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    #title-image {
-      text-align: center; /* Center the image horizontally */
-      max-width: 25%; /* Set maximum width for the title image */
-      margin: 20px auto; /* Center the container horizontally with top and bottom margin */
-    }
+#player-dropdown {
+  display: block; /* Make the dropdown a block element */
+  margin: 20px auto; /* Center the dropdown horizontally with top and bottom margin */
+  width: calc(100% - 40px); /* Set the width of the dropdown */
+  padding: 10px; /* Add padding to the dropdown */
+  border: 1px solid #ccc; /* Add border to the dropdown */
+  border-radius: 5px; /* Add border radius to the dropdown */
+}
 
-    #title-image img {
-      display: block; /* Ensure the image behaves as a block element */
-      width: 100%; /* Ensure the image fills its container */
-      height: auto; /* Maintain the aspect ratio */
-    }
-
-    #game-container {
-      max-width: 600px;
-      margin: 0 auto; /* Center the container horizontally */
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #player-dropdown {
-      display: block; /* Make the dropdown a block element */
-      margin: 20px auto; /* Center the dropdown horizontally with top and bottom margin */
-      width: calc(100% - 40px); /* Set the width of the dropdown */
-      padding: 10px; /* Add padding to the dropdown */
-      border: 1px solid #ccc; /* Add border to the dropdown */
-      border-radius: 5px; /* Add border radius to the dropdown */
-    }
-
-    #submit-guess {
-      background-color: #DAAE4F; /* Set background color */
-      color: white; /* Set text color */
-      display: block; /* Make the button a block element */
-      margin: 20px auto; /* Center the button horizontally with top and bottom margin */
-      padding: 10px 20px; /* Add padding to the button */
-      border: none; /* Remove default button border */
-      border-radius: 5px; /* Add border radius */
-      cursor: pointer; /* Change cursor on hover */
-    }
-
-    #submit-guess:hover {
-      background-color: #c39a3b; /* Change background color on hover */
-    }
-
-    #attempts-container {
-      text-align: center; /* Center the attempts container horizontally */
-      margin-top: 20px; /* Add margin on top */
-    }
-
-    #attempts-left {
-      background-color: #DAAE4F; /* Set background color for attempts container */
-      color: white; /* Set text color */
-      padding: 10px; /* Add padding */
-      border-radius: 5px; /* Add border radius */
-    }
-  </style>
-</head>
-<body>
-  <div id="title-image">
-    <img src="image-removebg-preview - 2024-03-18T093441.936.png" alt="Specle Game Title">
-  </div>
-  <div id="game-container">
-    <select id="player-dropdown">
-      <!-- Options for selecting players will be populated dynamically -->
-    </select>
-    <button id="submit-guess">Submit Guess</button>
-    <div id="feedback">
-      <!-- Feedback about the user's guess will be displayed here -->
-    </div>
-    <div id="attempts-container">
-      <div id="attempts-left">
-        Attempts Left: <span id="attempts-count">6</span>
-      </div>
-    </div>
-  </div>
-  <script src="scripts.js"></script> <!-- Link to your JavaScript file (optional) -->
-</body>
-</html>
+#submit-guess {
+  background-color: #DAAE4F; /* Set background color */
+  color: white; /* Set text color */
+  display: block; /* Make the button a block element */
+  margin: 20px auto; /* Center the button horizontally with top and bottom margin */
+  padding: 10px 20px; /* Add padding to the button */
+  border: none; /* Remove default button border */
+  border-radius: 5px; /* Add border radius */
+  cursor: pointer; /* Change cursor on hover */
+}
+#submit-guess:hover {
+  background-color: #c39a3b; /* Change background color on hover */
+}
+/* Add more CSS styles as needed */
