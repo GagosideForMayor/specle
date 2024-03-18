@@ -121,19 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         playerDropdown.disabled = true;
         submitButton.disabled = true;
         var tryAgainButton = document.createElement('button');
-        tryAgainButton.textContent = 'Try Again';
-        tryAgainButton.addEventListener('click', function() {
-            resetGame();
-        });
-        feedbackDiv.appendChild(tryAgainButton);
-    }
-
-    function disableGame() {
-        playerDropdown.disabled = true;
-        submitButton.disabled = true;
-        var tryAgainButton = document.createElement('button');
-        tryAgainButton.textContent = 'Try Again';
-        tryAgainButton.id = 'try-again-button'; // Add an ID to the button
+        tryAgainButton.textContent = 'pooooo';
         tryAgainButton.addEventListener('click', function() {
             resetGame();
         });
