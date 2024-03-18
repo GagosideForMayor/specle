@@ -128,6 +128,18 @@ document.addEventListener('DOMContentLoaded', function() {
         feedbackDiv.appendChild(tryAgainButton);
     }
 
+    function disableGame() {
+        playerDropdown.disabled = true;
+        submitButton.disabled = true;
+        var tryAgainButton = document.createElement('button');
+        tryAgainButton.textContent = 'Try Again';
+        tryAgainButton.id = 'try-again-button'; // Add an ID to the button
+        tryAgainButton.addEventListener('click', function() {
+            resetGame();
+        });
+        feedbackDiv.appendChild(tryAgainButton);
+    }
+    
     function resetGame() {
         attemptsLeft = 6;
         attemptsCount.textContent = attemptsLeft; // Reset attempts left display
@@ -137,3 +149,4 @@ document.addEventListener('DOMContentLoaded', function() {
         mysteryPlayer = getCorrectPlayer(); // Select a new mystery player
     }
 });
+
