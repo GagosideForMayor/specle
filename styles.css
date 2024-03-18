@@ -5,16 +5,19 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #title-image {
   text-align: center; /* Center the image horizontally */
   max-width: 25%; /* Set maximum width for the title image */
   margin: 20px auto; /* Center the container horizontally with top and bottom margin */
 }
+
 #title-image img {
   display: block; /* Ensure the image behaves as a block element */
   width: 100%; /* Ensure the image fills its container */
   height: auto; /* Maintain the aspect ratio */
 }
+
 #game-container {
   max-width: 600px;
   margin: 0 auto; /* Center the container horizontally */
@@ -43,7 +46,9 @@ body {
   border-radius: 5px; /* Add border radius */
   cursor: pointer; /* Change cursor on hover */
 }
+
 #submit-guess:hover {
   background-color: #c39a3b; /* Change background color on hover */
 }
+
 /* Add more CSS styles as needed */
