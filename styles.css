@@ -10,6 +10,9 @@ body {
 
 h1 {
   text-align: center;
+  color: white; /* Set text color to white */
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Use a cartoony font */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a drop shadow */
 }
 
 #game-container {
