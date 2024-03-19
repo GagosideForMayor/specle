@@ -116,6 +116,18 @@ document.addEventListener('DOMContentLoaded', function() {
         revealMessage.textContent = `The mystery player is: ${mysteryPlayer.name}`;
         feedbackDiv.appendChild(revealMessage);
     }
+
+    function disableGame() {
+    playerDropdown.disabled = true;
+    submitButton.disabled = true;
+    var tryAgainButton = document.createElement('button');
+    tryAgainButton.textContent = 'Try Again';
+    tryAgainButton.id = 'try-again-button'; // Add an ID to the button
+    tryAgainButton.addEventListener('click', function() {
+        resetGame();
+    });
+    feedbackDiv.appendChild(tryAgainButton);
+}
     
     function resetGame() {
         attemptsLeft = 6;
