@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
         displayAttributeFeedback('Jersey Number', selectedPlayer.jerseyNumber, mysteryPlayer.jerseyNumber, feedbackDiv);
         displayAttributeFeedback('Rating', selectedPlayer.rating, mysteryPlayer.rating, feedbackDiv);
         displayAttributeFeedback('Position', selectedPlayer.position, mysteryPlayer.position, feedbackDiv);
+
+        // Add line breaks after each attribute display
+        feedbackDiv.innerHTML += '<br>'.repeat(3);
     }
 
     function displayAttributeFeedback(attributeName, selectedValue, correctValue, feedbackDiv) {
